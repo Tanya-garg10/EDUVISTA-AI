@@ -54,7 +54,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-xl shadow-sm">
       {/* Single-row container — h-14 keeps everything tight */}
-      <div className="w-full px-3 sm:px-4 h-14 flex items-center gap-2 overflow-hidden">
+      <div className="w-full px-3 sm:px-4 h-14 flex items-center gap-2">
 
         {/* ── Logo ── */}
         <button
@@ -84,8 +84,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 type="button"
                 onClick={() => handleNav(item.route)}
                 className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px] font-medium transition-all cursor-pointer whitespace-nowrap flex-1 justify-center ${isActive
-                    ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30 font-semibold'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-800/70'
+                  ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30 font-semibold'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/70'
                   }`}
               >
                 {item.icon}
@@ -119,8 +119,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             type="button"
             onClick={() => handleNav('ai-engine')}
             className={`hidden xl:flex items-center gap-1 px-2 py-1.5 rounded-lg text-[11px] font-medium transition-all cursor-pointer ${currentRoute === 'ai-engine'
-                ? 'bg-purple-600/30 border border-purple-500/50 text-purple-200'
-                : 'bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800'
+              ? 'bg-purple-600/30 border border-purple-500/50 text-purple-200'
+              : 'bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800'
               }`}
             title="AI Agent Engine"
           >
@@ -191,8 +191,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 type="button"
                 onClick={() => { handleNav(item.route); setMobileMenuOpen(false); }}
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium cursor-pointer ${currentRoute === item.route
-                    ? 'bg-indigo-600 text-white font-semibold'
-                    : 'text-slate-300 hover:bg-slate-800'
+                  ? 'bg-indigo-600 text-white font-semibold'
+                  : 'text-slate-300 hover:bg-slate-800'
                   }`}
               >
                 {item.icon}
