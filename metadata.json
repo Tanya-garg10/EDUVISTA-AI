@@ -1,0 +1,7 @@
+{
+  "name": "EDUVISTA AI — Adaptive AI Teacher",
+  "description": "Your AI Teacher That Understands How You Learn. Upload learning material, receive personalized lesson plans, interact with an AI teacher avatar, detect misconceptions in real-time, and master any subject.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
