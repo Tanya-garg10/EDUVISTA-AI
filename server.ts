@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 import { createServer as createViteServer } from 'vite';
-import { GoogleGenAI } from '@google/genai';
+import OpenAI from 'openai';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -11,21 +11,16 @@ const PORT = 3000;
 
 app.use(express.json());
 
-// Initialize Gemini if API key is provided
-let aiClient: GoogleGenAI | null = null;
-function getAIClient(): GoogleGenAI | null {
-  if (!aiClient && process.env.GEMINI_API_KEY) {
+// Initialize OpenAI if API key is provided
+let aiClient: OpenAI | null = null;
+function getAIClient(): OpenAI | null {
+  if (!aiClient && process.env.OPENAI_API_KEY) {
     try {
-      aiClient = new GoogleGenAI({
-        apiKey: process.env.GEMINI_API_KEY,
-        httpOptions: {
-          headers: {
-            'User-Agent': 'aistudio-build',
-          }
-        }
+      aiClient = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
       });
     } catch (err) {
-      console.warn('Gemini client initialization warning:', err);
+      console.warn('OpenAI client initialization warning:', err);
     }
   }
   return aiClient;
@@ -90,11 +85,12 @@ app.post('/api/ai/ask-teacher', async (req, res) => {
   const ai = getAIClient();
   if (ai) {
     try {
-      const prompt = `You are Ava (also known as Nova), an exceptionally empathetic, pedagogically brilliant AI Master Teacher on EDUVISTA.
-Subject: ${currentTopic}
-Student Query: "${query}"
-Selected Language: ${lang}
-
+      const response = await ai.chat.completions.create({
+        model: 'gpt-4o',
+        messages: [
+          {
+            role: 'system',
+            content: `You are Ava (also known as Nova), an exceptionally empathetic, pedagogically brilliant AI Master Teacher on EDUVISTA.
 CRITICAL RULES & PEDAGOGY:
 1. ACCURACY: Provide 100% scientifically accurate explanation tailored to Grade 10 Physics (NCERT/CBSE/ICSE standards).
 2. TONE: Warm, encouraging, empathetic, and crystal clear.
@@ -111,28 +107,33 @@ CRITICAL RULES & PEDAGOGY:
 5. STRUCTURE YOUR ANSWER AS:
    - Core Concept: Direct, crystal-clear explanation (2-3 sentences).
    - Real-World Analogy: A vivid intuitive visual comparison (e.g., water pipes, traffic on highways, battery as a water pump).
-   - Key Takeaway: 1 memorable summary line or formula.`;
-
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.7-flash',
-        contents: prompt,
+   - Key Takeaway: 1 memorable summary line or formula.`
+          },
+          {
+            role: 'user',
+            content: `Subject: ${currentTopic}\nStudent Query: "${query}"\nSelected Language: ${lang}`
+          }
+        ],
+        temperature: 0.7,
+        max_tokens: 600,
       });
 
-      if (response.text && response.text.trim()) {
-        const cleaned = cleanFormattedResponse(response.text);
+      const text = response.choices[0]?.message?.content;
+      if (text && text.trim()) {
+        const cleaned = cleanFormattedResponse(text);
         return res.json({
           answer: cleaned,
           relatedConcept: `${currentTopic} · Core Principle`
         });
       }
     } catch (error) {
-      console.warn('Gemini API call error in /api/ai/ask-teacher, using dynamic smart fallback:', error);
+      console.warn('OpenAI API call error in /api/ai/ask-teacher, using dynamic smart fallback:', error);
     }
   }
 
   // Comprehensive Smart Fallback Library for Physics Electricity
   const qLower = (query || '').toLowerCase();
-  
+
   if (lang === 'Hinglish') {
     if (qLower.includes('length') || qLower.includes('lamba') || qLower.includes('wire') || qLower.includes('taar')) {
       return res.json({

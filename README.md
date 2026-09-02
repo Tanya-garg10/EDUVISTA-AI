@@ -27,7 +27,7 @@ Key capabilities:
 |---|---|
 | Frontend | React 19, TypeScript, Vite |
 | Styling | Tailwind CSS v4 |
-| AI / LLM | Google Gemini (`@google/genai`) |
+| AI / LLM | OpenAI GPT-4o (`openai`) |
 | Charts | Recharts |
 | Animation | Motion (Framer Motion) |
 | Icons | Lucide React |
@@ -57,9 +57,9 @@ Key capabilities:
    cp .env.example .env.local
    ```
 
-3. Add your Gemini API key to `.env.local`:
+3. Add your OpenAI API key to `.env.local`:
    ```
-   GEMINI_API_KEY=your_api_key_here
+   OPENAI_API_KEY=your_api_key_here
    ```
 
 4. Start the development server:
@@ -141,7 +141,7 @@ To explore the full flow:
 
 | Variable | Description |
 |---|---|
-| `GEMINI_API_KEY` | Your Google Gemini API key (required) |
+| `OPENAI_API_KEY` | Your OpenAI API key (required) — get it from [platform.openai.com](https://platform.openai.com/api-keys) |
 
 ---
 
