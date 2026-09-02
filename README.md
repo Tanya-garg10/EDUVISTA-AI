@@ -2,8 +2,6 @@
 
 An AI-powered educational platform that teaches, adapts, and recovers from misconceptions in real-time. Built with React, TypeScript, and Google Gemini.
 
----
-
 ## What It Does
 
 EDUVISTA AI acts as a personalized AI teacher. You upload a textbook or enter a topic, and the platform generates a micro-curriculum tailored to your level, language, and available time. An AI avatar (Ava) teaches the lesson with voice and live visual simulations, detects when you misunderstand something, and immediately pivots its explanation strategy using intuitive analogies.
@@ -19,8 +17,6 @@ Key capabilities:
 - **Learning Analytics Dashboard** — Tracks streak, concept mastery, average score, and weak areas
 - **Adaptive Learning Path** — Personalized topic roadmap based on your performance
 
----
-
 ## Tech Stack
 
 | Layer | Technology |
@@ -33,8 +29,6 @@ Key capabilities:
 | Icons | Lucide React |
 | Backend | Express.js (served via `server.ts`) |
 | Runtime | Node.js / Bun |
-
----
 
 ## Getting Started
 
@@ -71,8 +65,6 @@ Key capabilities:
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
----
-
 ## Project Structure
 
 ```
@@ -91,8 +83,6 @@ src/
 ├── types.ts            # All shared TypeScript types
 └── App.tsx             # Client-side router and global state
 ```
-
----
 
 ## Available Routes
 
@@ -113,8 +103,6 @@ src/
 
 > Navigation is client-side (no URL changes). The demo always starts with Class 10 Physics — Ohm's Law.
 
----
-
 ## Scripts
 
 ```bash
@@ -123,8 +111,6 @@ npm run build    # Build frontend + bundle server
 npm start        # Run production build
 npm run lint     # TypeScript type check
 ```
-
----
 
 ## Demo
 
@@ -135,15 +121,11 @@ To explore the full flow:
 2. Click **Launch AI Teacher** to enter the live classroom
 3. Answer a question incorrectly to trigger misconception detection and watch the AI adapt
 
----
-
 ## Environment Variables
 
 | Variable | Description |
 |---|---|
 | `OPENAI_API_KEY` | Your OpenAI API key (required) — get it from [platform.openai.com](https://platform.openai.com/api-keys) |
-
----
 
 ## License
 
